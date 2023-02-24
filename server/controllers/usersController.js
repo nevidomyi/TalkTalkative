@@ -11,7 +11,7 @@ const User = require("../models/user"),
     }
 
 module.exports = {
-    getUser : (req, res, next) => {
+    getUser: (req, res, next) => {
         let userId = req.params.id;
         User.findById(userId)
             .then(user => {
@@ -27,22 +27,21 @@ module.exports = {
             })
     },
     create: (req, res, next) => {
-        console.log(req.body);
-
-        let userParams = getUserParams(req.body);
-        let newUser = new User(userParams);
-        let error = newUser.joiValidate(userParams);
+        const userParams = getUserParams(req.body);
+        const newUser = new User(userParams);
+        const validate = newUser.joiValidate(userParams);
 
 
-        if (error) {
+        if (validate.error) {
             console.log("Validate failed!");
-            console.log(error);
+            console.log(validate.error);
             return next();
         }
 
-        User.register(newUser, (error, user) => {
+        newUser.save((error, user) => {
             if (user) {
                 console.log("user created succesful");
+                res.send("user created succesful");
                 // res.locals.redirect = "/user";
             } else {
                 console.log(error);
