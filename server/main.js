@@ -1,34 +1,34 @@
-const express = require("express"),
-    app = express(),
-    router = require("./routes/index"),
-    mongoose = require("mongoose");
+const express = require('express');
+const app = express();
+const router = require('./routes/index');
+const mongoose = require('mongoose');
 
 mongoose.set('strictQuery', false);
 mongoose.connect(
-    process.env.MONGODB_URI ||
-    "mongodb://127.0.0.1:27017/talktalkative",
-    {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    }
-)
+  process.env.MONGODB_URI ||
+    'mongodb://127.0.0.1:27017/talktalkative',
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }
+);
 
 const db = mongoose.connection;
 
-db.once("open", () => {
-    console.log("DB succesfully connected by Mongoose!");
+db.once('open', () => {
+  console.log('DB succesfully connected by Mongoose!');
 });
 
-app.set("port", process.env.PORT || 3001)
+app.set('port', process.env.PORT || 3001);
 
 app.use(
-    express.urlencoded({
-        extended: false
-    })
+  express.urlencoded({
+    extended: false
+  })
 );
 app.use(express.json());
 
-app.use("/", router);
+app.use('/', router);
 app.listen(3001, () => {
-    console.log("server is active");
+  console.log('server is active');
 });
