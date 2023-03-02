@@ -1,0 +1,34 @@
+- Chat.
+	Features: - Login for users.
+		- Send messanges.
+		- Send images.
+		- Send webm.
+		- Notifications.
+		(- Tags for users.)
+		- Create different rooms for different themes (ChatBoards or smt).
+		- Chat display only 500 last messages.
+		- Massage have limit in 200 symbols.
+		- Max file is 5 mb.
+		- Pagination for messages.
+- Users.
+	Features: - Can add avatar, login-name, password, contact info.
+		- Can edit personal info and avatar.
+		(- Can change personal background for chats.)
+		- Different rights for users.
+		- Admin, mod, users - hierarchy.
+		(- Reset password)
+		(- Can buy emoji or stickers personal or for present too).
+
+DESKTOP AND MOBILE VERSION.
+		
+	Admin--->Rights: Can block mod and users, can unblock mod and users. Can create chatboards. Can give mod status. Can present emoji or stickers.
+	Mod--->Rights: Can block users, can unblock users.
+
+
+Login for users: for login is necessary fill email and password input.
+
+Stack. Back-end: MongoDB, NodeJS, Express, Socket.io. Front-end: React, Tailwind CSS, ReactRoute, Redux.
+
+joi - validate 
+jwt - coockie analog
+pino - logger

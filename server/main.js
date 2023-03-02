@@ -29,6 +29,12 @@ app.use(
 app.use(express.json());
 
 app.use('/', router);
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
+
 app.listen(3001, () => {
   console.log('server is active');
 });
