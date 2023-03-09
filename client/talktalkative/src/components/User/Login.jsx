@@ -92,17 +92,17 @@ function Login() {
             </form>
           </div>
           <div id="signin" className="flex flex-col items-center">
-            <span className="break-words mr-2">
+            <span className="break-words mt-6">
               You already have profile? Not a problem
             </span>
             <a
               href=""
-              className="flex justify-center items-center text-center w-32 h-12 bg-white border border-awesome-blue rounded-2xl text-awesome-blue text-xl transition ease-in-out delay-50 hover:shadow-inner hover:bg-awesome-blue hover:text-white cursor-pointer"
+              className="flex justify-center items-center text-center w-32 h-12 mt-8 bg-awesome-red rounded-2xl text-white text-xl transition ease-in-out delay-50 hover:shadow-inner hover:bg-hower-aw-red cursor-pointer"
             >
               <p className="text-inherit">Sign-in</p>
             </a>
           </div>
-          <div className="flex justify-center mt-6">
+          <div className="flex justify-center pt-4">
             <span className="text-center">© 2023</span>
           </div>
         </div>
