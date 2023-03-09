@@ -99,7 +99,7 @@ function Login() {
               href=""
               className="flex justify-center items-center text-center w-32 h-12 mt-8 bg-awesome-red rounded-2xl text-white text-xl transition ease-in-out delay-50 hover:shadow-inner hover:bg-hower-aw-red cursor-pointer"
             >
-              <p className="text-inherit">Sign-in</p>
+              <p className="text-inherit">Sign-up</p>
             </a>
           </div>
           <div className="flex justify-center pt-4">

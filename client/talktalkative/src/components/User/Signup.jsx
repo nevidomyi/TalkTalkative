@@ -1,4 +1,5 @@
 import React from "react";
+import { ImageUpload } from "../../utils/ImageUpload";
 
 function Signup() {
   return (
@@ -23,19 +24,7 @@ function Signup() {
             method="get"
             className="py-4 px-4 flex flex-col items-center signup-form-bg"
           >
-            <label
-              for="img"
-              className="w-24 h-24 bg-gray-50 rounded-full border border-black flex justify-center transition ease-in-out delay-50 hover:bg-gray-200 active:bg-gray-400 cursor-pointer"
-            >
-              <img src="image\plus-icon.svg" className=""></img>
-            </label>
-            <input
-              type="file"
-              id="img"
-              name="img"
-              accept="image/*"
-              className="hidden"
-            />
+            <ImageUpload />
             <input
               type="text"
               name="Email"
@@ -71,7 +60,7 @@ function Signup() {
           </form>
         </div>
 
-        <div className="flex justify-center mt-6">
+        <div className="flex justify-center pt-20">
           <span className="text-center">© 2023</span>
         </div>
         <div id="signin" className="flex flex-row absolute top-3 right-3">
