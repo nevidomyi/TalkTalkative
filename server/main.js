@@ -36,6 +36,8 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something broke!');
 });
 
-app.listen(3001, () => {
-  console.log('server is active');
+const server = app.listen(app.get("port"), () => {
+  console.log(`server is active http://localhost:${app.get("port")}`);
 });
+io = require('socket.io')(server);
+require('./controllers/chatController')(io);

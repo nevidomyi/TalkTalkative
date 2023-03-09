@@ -32,3 +32,16 @@ Stack. Back-end: MongoDB, NodeJS, Express, Socket.io. Front-end: React, Tailwind
 joi - validate 
 jwt - coockie analog
 pino - logger
+
+1. BE: setup env variables (https://www.npmjs.com/package/dotenv) + 
+2. BE: add password hashing  + 
+3. BE: add jwt middleware for protected routes (https://www.npmjs.com/package/jsonwebtoken) +
+4. BE: add more mongo schemas (chat, chat message)+
+5. BE: CRUD + ws server +
+6. FE: auth
+7. FE: profile
+8. FE: chats
+
+https://www.youtube.com/watch?v=HggSXt1Hzfk&t=4714s - MERN Stack Messenger Clone
+
+https://www.youtube.com/watch?v=_IdqfAzaqVs - pretty avatar previewer
