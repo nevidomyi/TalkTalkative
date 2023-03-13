@@ -1,11 +1,23 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { ImageUpload } from "../../utils/ImageUpload";
 
 function Signup() {
-  const userData = {};
+  const { selectedFile, preview, onSelectFile } = ImageUpload();
+  const userData = {
+    avatar: "",
+    email: "",
+    password: "",
+    username: "",
+    contact_info: "",
+    status: 1,
+  };
 
-  const [user, setUser] = useState(null);
+  const url = "http://localhost:3001/users/new";
 
+  const [user, setUserData] = useState(userData);
+
+  //  Is it good way to use promise here?
   const convertToBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
@@ -17,6 +29,29 @@ function Signup() {
         reject(error);
       };
     });
+  };
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertToBase64(file);
+    setUserData((prev) => ({
+      ...prev,
+      avatar: base64,
+    }));
+    onSelectFile(e);
+  };
+
+  const handleInputChange = (e) => {
+    setUserData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+    console.log(user);
+  };
+
+  const submitForm = () => {
+    axios.post(url, user).catch((error) => console.log(error));
+    // axios.
   };
 
   return (
@@ -36,42 +71,59 @@ function Signup() {
           </h2>
         </div>
         <div id="signup-form" className="my-bg-gradient">
-          <form
-            action=""
-            method="get"
-            className="py-4 px-4 flex flex-col items-center signup-form-bg"
-          >
-            <ImageUpload />
+          <form className="py-4 px-4 flex flex-col items-center signup-form-bg">
+            <label
+              htmlFor="img"
+              className="w-24 h-24 bg-gray-50 rounded-full border overflow-hidden border-black flex justify-center transition ease-in-out delay-50 hover:bg-gray-200 active:bg-gray-400 cursor-pointer"
+            >
+              <img
+                src={selectedFile ? preview : "image/plus-icon.svg"}
+                className={selectedFile ? "max-w-max" : "w-6"}
+              ></img>
+            </label>
+            <input
+              type="file"
+              id="img"
+              name="img"
+              accept="image/*"
+              onChange={handleFileUpload}
+              className="hidden"
+            />
             <input
               type="text"
-              name="Email"
+              name="email"
               placeholder="Email"
+              onChange={handleInputChange}
               className="w-64  h-11 px-6 mt-6 text-l   text-awesome-blue border rounded-3xl border-black transition ease-in-out delay-50 hover:bg-gray-200"
             />
             <input
               type="password"
               name="password"
               placeholder="Password"
+              onChange={handleInputChange}
               className="w-64  h-11 px-6 mt-6 text-l  text-awesome-blue border rounded-3xl border-black transition ease-in-out delay-50 hover:bg-gray-200"
             />
             <input
               type="text"
               name="username"
               placeholder="Username"
+              onChange={handleInputChange}
               className="w-64 h-11 px-6 mt-6 text-l  text-awesome-blue border rounded-3xl border-black transition ease-in-out delay-50 hover:bg-gray-200"
             />
             <textarea
-              name="about"
+              name="contact_info"
               id=""
               rows="10"
-              maxlength="120"
+              maxLength="120"
               autoComplete="off"
-              placeholder="About me"
+              placeholder="Contact info"
+              onChange={handleInputChange}
               className="w-64 h-36 px-6 mt-6 text-l resize-none overflow-hidden text-awesome-blue border rounded-3xl border-black transition ease-in-out delay-50 hover:bg-gray-200"
             ></textarea>
             <input
               type="button"
               value="Sign-up"
+              onClick={submitForm}
               className="w-32 h-12 mt-5 bg-awesome-red rounded-2xl text-white text-xl transition ease-in-out delay-50 hover:shadow-inner hover:bg-hower-aw-red cursor-pointer"
             />
           </form>

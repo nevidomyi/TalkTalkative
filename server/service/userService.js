@@ -7,6 +7,7 @@ class UserService {
 
   async create (payload) {
     const data = userValidation(payload);
+    console.log(data);
     if (!data.error) {
       return await this.User.create(data.value);
     } else {
