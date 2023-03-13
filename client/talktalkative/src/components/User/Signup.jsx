@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { ImageUpload } from "../../utils/ImageUpload";
 
 function Signup() {
+  const userData = {};
+
+  const [user, setUser] = useState(null);
+
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
   return (
     <div
       id="container"
@@ -12,7 +29,7 @@ function Signup() {
           <span className="flex flex-row items-center text-4xl text-awesome-blue h-12">
             <h1>Talk</h1>
             <p className="font-bold ">Talkative</p>
-            <img src="image\dialog-logo.svg" className="h-12"></img>
+            <img src="..\image\dialog-logo.svg" className="h-12"></img>
           </span>
           <h2 className="text-4xl text-black font-bold ">
             Let's start, <span className="text-awesome-red">talker</span>!

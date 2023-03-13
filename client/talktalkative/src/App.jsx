@@ -1,14 +1,11 @@
 import React from "react";
-import Login from "./components/User/Login";
-import Signup from "./components/User/Signup";
-import UserPage from "./components/User/UserPage";
-import UserPageEdit from "./components/User/UserPageEdit";
-import Chat from "./components/Chat/Chat";
+import { RouterProvider } from "react-router-dom";
+import router from "./pages/Router";
 
 function App() {
   return (
     <div id="App">
-      <Chat />
+      <RouterProvider router={router} />
     </div>
   );
 }

@@ -5,7 +5,7 @@
 
 @layer components {
   html {
-    @apply h-full bg-gray-100;
+    @apply h-full bg-white;
   }
   body {
     @apply h-full;
@@ -14,6 +14,14 @@
 
 * {
   font-family: "Inter";
+}
+
+#App {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
 }
 
 .my-bg-gradient {
@@ -33,6 +41,32 @@
   background: url("image/Component 8.png") scroll no-repeat;
 }
 
+.chat-bg {
+  background: url("image/chat-background.png") no-repeat;
+  background-size: cover;
+}
+
+.home-bg {
+  background: url("image/home-bg.png") no-repeat;
+  background-size: cover;
+}
+
 .max-w-size {
   max-width: 100rem;
+}
+
+.list-style-arrow {
+  list-style-image: url("image/arrow.svg");
+}
+
+.list-style-tag {
+  list-style-image: url("image/hashtag.svg");
+}
+
+.textarea {
+  width: 100%;
+}
+
+.textarea::placeholder {
+  color: #d9d9d9;
 }

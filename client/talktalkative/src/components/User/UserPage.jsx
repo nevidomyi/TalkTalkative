@@ -14,7 +14,7 @@ function UserPage() {
         >
           <h1>Talk</h1>
           <p className="font-bold ">Talkative</p>
-          <img src="image\dialog-logo.svg" className="h-12"></img>
+          <img src="..\image\dialog-logo.svg" className="h-12"></img>
         </a>
 
         <div id="btn-group" className="flex space-x-8">
@@ -35,7 +35,7 @@ function UserPage() {
       <div id="user-card" className="flex mt-10 lg:px-20 xl:px-40 2xl:px-60 ">
         <div className="flex flex-col flex-shrink-0 mr-4 items-center justify-between">
           <img
-            src="\image\BoJack_profile.png"
+            src="..\image\BoJack_profile.png"
             alt=""
             className="w-52 h-52 rounded-full border border-black"
           />

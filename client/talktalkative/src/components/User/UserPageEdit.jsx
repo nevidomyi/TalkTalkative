@@ -15,7 +15,7 @@ function UserPageEdit() {
         >
           <h1>Talk</h1>
           <p className="font-bold ">Talkative</p>
-          <img src="image\dialog-logo.svg" className="h-12"></img>
+          <img src="..\image\dialog-logo.svg" className="h-12"></img>
         </a>
 
         <div id="btn-group" className="flex space-x-8">
@@ -36,12 +36,12 @@ function UserPageEdit() {
       <div id="user-card" className="flex mt-10 lg:px-20 xl:px-40 2xl:px-60 ">
         <div className="flex flex-col flex-shrink-0 w-auto mr-4 items-center justify-between">
           <div className="relative overflow-hidden w-52 h-52 rounded-full border border-black">
-            <img src="\image\BoJack_profile.png" alt="" />
+            <img src="..\image\BoJack_profile.png" alt="" />
             <label
               htmlFor="img"
               className="flex justify-center items-center h-10 absolute bottom-0 right-1/2 translate-x-1/2 w-full bg-gray-400/75 hover:bg-gray-400 cursor-pointer"
             >
-              <img src="\image\edit-icon.svg" className="h-5" alt="" />
+              <img src="..\image\edit-icon.svg" className="h-5" alt="" />
             </label>
           </div>
           <div className="flex flex-col">
