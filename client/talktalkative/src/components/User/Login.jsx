@@ -1,20 +1,29 @@
 import React, { useState } from "react";
+import userAPI from "../../api/User/userAPI";
 
 function Login() {
-  // const [user, setUser] = useState({});
+  const { loginUser } = userAPI();
+  const credentialsData = {
+    email: "",
+    password: "",
+  };
 
-  // function setData(param) {
-  //   console.log(user);
-  //   setUser((prev) => ({
-  //     ...prev,
-  //     [param.target.name]: param.target.value,
-  //   }));
-  // }
+  const [credentials, setCredentials] = useState(credentialsData);
 
-  // function handleLogin() {
-  //   auth.login(user);
-  //   navigate(`/myprofile`);
-  // }
+  const handleInputChange = (e) => {
+    setCredentials((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const submitForm = async () => {
+    console.log(credentials);
+    const res = await loginUser(credentials);
+    console.log(res);
+    // auth.login(user);
+    // navigate(`/myprofile`);
+  };
 
   return (
     <div
@@ -23,31 +32,32 @@ function Login() {
     >
       <div id="signup-component" className="w-full max-w-lg space-y-2">
         <div className="flex flex-col items-center mb-10">
-          <span className="flex flex-row items-center text-4xl text-awesome-blue h-12">
+          <a
+            href="/"
+            className="flex flex-row items-center text-4xl text-awesome-blue h-12"
+          >
             <h1>Talk</h1>
             <p className="font-bold ">Talkative</p>
             <img src="..\image\dialog-logo.svg" className="h-12"></img>
-          </span>
+          </a>
           <h2 className="text-4xl text-black font-bold ">
             Welcome back, <span className="text-awesome-red">talker</span>!
           </h2>
         </div>
         <div id="signup-form" className="my-bg-gradient">
-          <form
-            action=""
-            method="get"
-            className="py-4 px-4 flex flex-col items-center login-form-bg"
-          >
+          <form className="py-4 px-4 flex flex-col items-center login-form-bg">
             <input
               type="text"
-              name="Email"
+              name="email"
               placeholder="Email"
+              onChange={handleInputChange}
               className="w-64  h-11 px-6 mt-8 text-l   text-awesome-blue border rounded-3xl border-black transition ease-in-out delay-50 hover:bg-gray-200"
             />
             <input
               type="password"
               name="password"
               placeholder="Password"
+              onChange={handleInputChange}
               className="w-64  h-11 px-6 mt-8 text-l  text-awesome-blue border rounded-3xl border-black transition ease-in-out delay-50 hover:bg-gray-200"
             />
             <div className="flex items-center mt-14">
@@ -62,6 +72,7 @@ function Login() {
             <input
               type="button"
               value="Sign-in"
+              onClick={submitForm}
               className="w-32 h-12 mt-10 mb-6 bg-awesome-blue rounded-2xl text-white text-xl transition ease-in-out delay-50 hover:shadow-inner hover:bg-hower-aw-blue cursor-pointer"
             />
           </form>
@@ -71,7 +82,7 @@ function Login() {
             You already have profile? Not a problem
           </span>
           <a
-            href=""
+            href="/signup"
             className="flex justify-center items-center text-center w-32 h-12 mt-8 bg-awesome-red rounded-2xl text-white text-xl transition ease-in-out delay-50 hover:shadow-inner hover:bg-hower-aw-red cursor-pointer"
           >
             <p className="text-inherit">Sign-up</p>

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-function signupAPI() {
+function userAPI() {
   const routerURL = "http://localhost:3001/users";
 
   const routes = {
@@ -12,40 +12,40 @@ function signupAPI() {
   };
 
   // User objext expected
-  function createUser(res) {
-    return axios
+  async function createUser(res) {
+    return await axios
       .post(`${routerURL + routes.createPOST}`, res)
       .catch((error) => console.error(error))
       .then((res) => res);
   }
 
   // Credential expected
-  function loginUser(res) {
-    return axios
+  async function loginUser(res) {
+    return await axios
       .post(`${routerURL + routes.loginPOST}`, res)
       .catch((error) => console.error(error))
       .then((res) => res);
   }
 
   // User object expected
-  function updateUser(res) {
-    return axios
+  async function updateUser(res) {
+    return await axios
       .put(`${routerURL + routes.updatePUT}`, res)
       .catch((error) => error)
       .then((res) => res);
   }
 
   // User id and password expected
-  function removeUser(res) {
-    return axios
+  async function removeUser(res) {
+    return await axios
       .delete(`${routerURL + routes.deleteDELETE}`, res)
       .catch((error) => error)
       .then((res) => res);
   }
 
   //Token expected
-  function getUser(res) {
-    return axios
+  async function getUser(res) {
+    return await axios
       .get(`${routerURL + routes.deleteDELETE}`, res)
       .catch((error) => error)
       .then((res) => res);
@@ -60,4 +60,4 @@ function signupAPI() {
   };
 }
 
-export default signupAPI;
+export default userAPI;

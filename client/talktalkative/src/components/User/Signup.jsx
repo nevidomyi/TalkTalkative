@@ -1,9 +1,10 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { ImageUpload } from "../../utils/ImageUpload";
+import userAPI from "../../api/User/userAPI";
 
 function Signup() {
   const { selectedFile, preview, onSelectFile } = ImageUpload();
+  const { createUser } = userAPI();
   const userData = {
     avatar: "",
     email: "",
@@ -12,8 +13,6 @@ function Signup() {
     contact_info: "",
     status: 1,
   };
-
-  const url = "http://localhost:3001/users/new";
 
   const [user, setUserData] = useState(userData);
 
@@ -49,9 +48,9 @@ function Signup() {
     console.log(user);
   };
 
-  const submitForm = () => {
-    axios.post(url, user).catch((error) => console.log(error));
-    // axios.
+  const submitForm = async () => {
+    const res = await createUser(user);
+    console.log(res);
   };
 
   return (
@@ -61,11 +60,14 @@ function Signup() {
     >
       <div id="signup-component" className="w-full max-w-lg space-y-2">
         <div className="flex flex-col items-center">
-          <span className="flex flex-row items-center text-4xl text-awesome-blue h-12">
+          <a
+            href="/"
+            className="flex flex-row items-center text-4xl text-awesome-blue h-12"
+          >
             <h1>Talk</h1>
             <p className="font-bold ">Talkative</p>
             <img src="..\image\dialog-logo.svg" className="h-12"></img>
-          </span>
+          </a>
           <h2 className="text-4xl text-black font-bold ">
             Let's start, <span className="text-awesome-red">talker</span>!
           </h2>
@@ -137,7 +139,7 @@ function Signup() {
             You already have profile? Not a problem
           </span>
           <a
-            href=""
+            href="/login"
             className="flex justify-center items-center text-center w-32 h-12 bg-white border border-awesome-blue rounded-2xl text-awesome-blue text-xl transition ease-in-out delay-50 hover:shadow-inner hover:bg-awesome-blue hover:text-white cursor-pointer"
           >
             <p className="text-inherit">Sign-in</p>
