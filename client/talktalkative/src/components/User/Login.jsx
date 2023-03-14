@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import userAPI from "../../api/User/userAPI";
 import { useAuth } from "../../hooks/useAuth";
+import { useNavigate } from "react-router";
 
 function Login() {
   const { login } = useAuth();
   const { loginUser } = userAPI();
+  const navigate = useNavigate();
   const credentialsData = {
     email: "",
     password: "",
@@ -23,8 +25,7 @@ function Login() {
     console.log(credentials);
     const res = await loginUser(credentials);
     login(res.data);
-    // auth.login(user);
-    // navigate(`/myprofile`);
+    navigate(`/chat`);
   };
 
   return (

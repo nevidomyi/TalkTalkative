@@ -52,8 +52,26 @@ class UserService {
   
 
   async getUser (id) {
-    const user = await this.User.findById(id);
-    return user;
+    try {
+      const user = await this.User.findById(id);
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      const answer = {
+        id: user._id.toString,
+        username: user.username,
+        contact_info: user.contact_info,
+        avatar: user.avatar,
+        status: user.status,
+      }
+
+      return answer;
+    } catch (error) {
+      console.log(error);
+
+      throw new Error("User can't be found")
+    }
   }
 
   async authenticate (email, password) {
@@ -69,12 +87,25 @@ class UserService {
       }
     
       const jwt = jwtHandler.issueToken({ userId: user._id });
+      if (!jwt.token) {
+        throw new Error("Issue token wasn't success");
+      }
     
-      return jwt;
+      const answer = {
+        id: user._id.toString,
+        username: user.username,
+        email: user.email,
+        contact_info: user.contact_info,
+        avatar: user.avatar,
+        status: user.status,
+        token: jwt.token,
+      };
+
+      return answer;
     } catch (error) {
       console.error(error);
   
-      throw new Error('Invalid password')
+      throw new Error('Invalid password');
     }
   }
 

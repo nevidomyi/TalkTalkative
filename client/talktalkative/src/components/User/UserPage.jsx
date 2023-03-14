@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 function UserPage() {
+  const { user } = useContext(AuthContext);
+
   return (
     <div
       id="container"
