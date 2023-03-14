@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import userAPI from "../../api/User/userAPI";
+import { useAuth } from "../../hooks/useAuth";
 
 function Login() {
+  const { login } = useAuth();
   const { loginUser } = userAPI();
   const credentialsData = {
     email: "",
@@ -20,7 +22,7 @@ function Login() {
   const submitForm = async () => {
     console.log(credentials);
     const res = await loginUser(credentials);
-    console.log(res);
+    login(res.data);
     // auth.login(user);
     // navigate(`/myprofile`);
   };
