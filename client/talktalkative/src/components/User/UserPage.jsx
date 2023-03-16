@@ -1,12 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import React, { useEffect, useState } from "react";
+import { useAuth } from "../../hooks/useAuth";
 import { getUser } from "../../api/User/userAPI";
 
 function UserPage() {
-  const { token } = useContext(AuthContext);
+  const { api } = useAuth();
   const [user, setUser] = useState({});
 
   useEffect(() => {
+    // api.getUser();
     const fetchData = async () => {
       const response = await getUser(token, "1");
       setUser(response);
