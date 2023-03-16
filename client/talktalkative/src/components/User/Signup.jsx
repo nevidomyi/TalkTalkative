@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { ImageUpload } from "../../utils/ImageUpload";
-import userAPI from "../../api/User/userAPI";
+import { createUser } from "../../api/User/userAPI";
 
 function Signup() {
   const { selectedFile, preview, onSelectFile } = ImageUpload();
-  const { createUser } = userAPI();
   const userData = {
     avatar: "",
     email: "",
@@ -45,7 +44,6 @@ function Signup() {
       ...prev,
       [e.target.name]: e.target.value,
     }));
-    console.log(user);
   };
 
   const submitForm = async () => {

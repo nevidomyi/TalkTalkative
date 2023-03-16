@@ -19,7 +19,7 @@ function Chat() {
         <div id="user-profile" className="flex">
           <div className="flex flex-col justify-center items-end mr-2 text-sm">
             <a>@BoJack_horseman</a>
-            <a href="" className="pr-6 text-awesome-blue">
+            <a href="/user/edit" className="pr-6 text-awesome-blue">
               📝Edit
             </a>
             <a href="" className="text-awesome-red">

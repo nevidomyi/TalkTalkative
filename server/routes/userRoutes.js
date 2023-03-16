@@ -3,9 +3,10 @@ const usersController = require('../controllers/usersController');
 
 router.post('/new', usersController.create);
 router.post('/login', usersController.authenticate);
-router.put('/update', usersController.update);
-router.delete('/delete', usersController.delete);
-router.get('/:token', usersController.verify);
-// router.get('/:id', usersController.getUser);
+router.get('/profile/', usersController.getUser);
+router.delete('/:id', usersController.delete);
+router.put('/:id', usersController.update);
+router.get('/:id', usersController.getUser);
+router.get('/verify/:token', usersController.verify);
 
 module.exports = router;
