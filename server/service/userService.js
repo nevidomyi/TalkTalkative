@@ -59,8 +59,9 @@ class UserService {
       }
 
       const answer = {
-        id: user._id.toString,
+        id: user._id.toString(),
         username: user.username,
+        email: user.email,
         contact_info: user.contact_info,
         avatar: user.avatar,
         status: user.status,
@@ -91,17 +92,19 @@ class UserService {
         throw new Error("Issue token wasn't success");
       }
     
-      const answer = {
-        id: user._id.toString,
-        username: user.username,
-        email: user.email,
-        contact_info: user.contact_info,
-        avatar: user.avatar,
-        status: user.status,
-        token: jwt.token,
-      };
+      // const answer = {
+      //   id: user._id.toString(),
+      //   username: user.username,
+      //   email: user.email,
+      //   contact_info: user.contact_info,
+      //   avatar: user.avatar,
+      //   status: user.status,
+      //   token: jwt.token,
+      // };
 
-      return answer;
+      // console.log(answer);
+
+      return jwt;
     } catch (error) {
       console.error(error);
   
@@ -118,10 +121,7 @@ class UserService {
         throw new Error('User not found');
       }
 
-      return {
-        access: true,
-        user: user,
-      }
+      return userId;
     } catch (error) {
       console.error(error);
 

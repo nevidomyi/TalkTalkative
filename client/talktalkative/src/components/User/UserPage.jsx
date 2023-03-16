@@ -1,9 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { getUser } from "../../api/User/userAPI";
 
 function UserPage() {
-  const { user } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await getUser(token, "1");
+      setUser(response);
+    };
+    fetchData();
+  }, [token]);
 
   return (
     <div
@@ -39,42 +48,43 @@ function UserPage() {
       <div id="user-card" className="flex mt-10 lg:px-20 xl:px-40 2xl:px-60 ">
         <div className="flex flex-col flex-shrink-0 mr-4 items-center justify-between">
           <img
-            src="..\image\BoJack_profile.png"
+            src={user.avatar}
             alt=""
             className="w-52 h-52 rounded-full border border-black"
           />
-          <input
-            type="button"
-            value="Edit"
-            className="w-32 h-12 mt-5 bg-white border  border-awesome-blue rounded-2xl text-awesome-blue text-xl transition ease-in-out delay-50 hover:shadow-inner hover:bg-awesome-blue hover:text-white cursor-pointer"
-          />
+          <a
+            href="/user/edit"
+            className="w-32 h-12 mt-5 flex items-center justify-center bg-white border  border-awesome-blue rounded-2xl text-awesome-blue text-xl transition ease-in-out delay-50 hover:shadow-inner hover:bg-awesome-blue hover:text-white cursor-pointer"
+          >
+            Edit
+          </a>
         </div>
         <div className="space-y-5">
           <div>
             <span className="text-awesome-red">
               User Name:
-              <p className="inline text-black ml-1">@BoJack_horsemen</p>
+              <p className="inline text-black ml-1">{user.username}</p>
             </span>
           </div>
           <div>
             <span className="text-awesome-red">
               Email:
-              <p className="inline text-black ml-1">BoJack@gmail.com</p>
+              <p className="inline text-black ml-1">{user.email}</p>
             </span>
           </div>
           <div>
             <span className="text-awesome-red">
               Contact Info:
-              <p className="inline text-black  ml-1">
-                My phone number: +38074568945 Mauris quis mi turpis. Sed
-                bibendum massa vel malesuada placerat. Suspendisse dignissim leo
-                vitae magna interdum, in pharetra purus ultricies. Nam viverra
-                non tellus id tristique. Duis pulvinar commodo mauris sit amet
-                euismod. Nulla mattis tortor nec molestie ullamcorper.
-              </p>
+              <p className="inline text-black  ml-1">{user.contact_info}</p>
             </span>
           </div>
           <div>
+            <span className="text-awesome-red">
+              Status:
+              <p className="inline text-black  ml-1">{user.status}</p>
+            </span>
+          </div>
+          {/* <div>
             <span className="text-awesome-red">
               GitHub link:
               <p className="inline text-black ml-1">BoJack@gmail.com</p>
@@ -91,7 +101,7 @@ function UserPage() {
                 tortor nec molestie ullamcorper.
               </p>
             </span>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

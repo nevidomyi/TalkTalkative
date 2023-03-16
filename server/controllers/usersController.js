@@ -23,10 +23,28 @@ const usersController = {
   ),
   getUser: asyncHandler( 
     async (req, res) => {
-      const user = await userService.getUser(req.params.id);
+      let id = "";
+      try {
+        await userService.verify(req.headers.authorization);
+      } catch (error) {
+        throw new Error('Invalid token');
+      }
+
+      if (req.params.id === "1") {
+        id = await userService.verify(req.headers.authorization);
+      } else {
+        id = req.params.id;
+      }
+
+      const user = await userService.getUser(id);
+
+      console.log(user);
+
       res.json(user);
     }
   ),
+  //getUser, getProfile
+
   authenticate: asyncHandler(
     async(req, res) => {
       const user = await userService.authenticate(req.body.email, req.body.password);

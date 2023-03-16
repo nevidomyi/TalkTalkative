@@ -3,21 +3,21 @@ import { AuthContext } from "../context/AuthContext";
 import { useLocalStorage } from "./useLocalStorage";
 
 export const useUser = () => {
-  const { user, setUser } = useContext(AuthContext);
+  const { token, setToken } = useContext(AuthContext);
   const { setItem } = useLocalStorage();
 
-  const addUser = (user) => {
+  const addUser = (token) => {
     console.log(user);
     setUser(user);
     setItem("user", JSON.stringify(user));
     console.log(
-      "User has been added to localStorage" + localStorage.getItem("user")
+      "User's token has been added to localStorage" + localStorage.getItem("user")
     );
   };
 
   const removeUser = () => {
     setUser(null);
-    setItem("user", "");
+    setItem("token", "");
   };
 
   return { user, removeUser, addUser };

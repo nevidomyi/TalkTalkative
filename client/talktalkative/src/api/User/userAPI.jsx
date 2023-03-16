@@ -1,63 +1,53 @@
 import axios from "axios";
 
-function userAPI() {
-  const routerURL = "http://localhost:3001/users";
+// const API_URL = "http://localhost:3001";
 
-  const routes = {
-    createPOST: "/new",
-    loginPOST: "/login",
-    updatePUT: "/update",
-    deleteDELETE: "/delete",
-    tokenGET: "/",
-  };
+// const routerURL = "http://localhost:3001/users/";
 
-  // User objext expected
-  async function createUser(res) {
-    return await axios
-      .post(`${routerURL + routes.createPOST}`, res)
-      .catch((error) => console.error(error))
-      .then((res) => res);
-  }
+// const routes = {
+//   createPOST: "/new",
+//   loginPOST: "/login",
+//   updatePUT: "/update",
+//   deleteDELETE: "/delete",
+//   tokenGET: "/",
+// };
 
-  // Credential expected
-  async function loginUser(res) {
-    return await axios
-      .post(`${routerURL + routes.loginPOST}`, res)
-      .catch((error) => console.error(error))
-      .then((res) => res);
-  }
+// User objext expected
+export const createUser = async (req) => {
+  const response = await axios.post("/users/new", req);
+  return response.data;
+};
 
-  // User object expected
-  async function updateUser(res) {
-    return await axios
-      .put(`${routerURL + routes.updatePUT}`, res)
-      .catch((error) => error)
-      .then((res) => res);
-  }
+// Credential expected
 
-  // User id and password expected
-  async function removeUser(res) {
-    return await axios
-      .delete(`${routerURL + routes.deleteDELETE}`, res)
-      .catch((error) => error)
-      .then((res) => res);
-  }
+export const loginUser = async (req) => {
+  const response = await axios.post("/users/login", req);
+  return response.data;
+};
 
-  //Token expected
-  async function getUser(res) {
-    return await axios
-      .get(`${routerURL + routes.deleteDELETE}`, res)
-      .catch((error) => error)
-      .then((res) => res);
-  }
-
-  return {
-    createUser,
-    loginUser,
-    updateUser,
-    removeUser,
-    getUser,
-  };
+// User object expected
+async function updateUser(res) {
+  return await axios
+    .put(`${routerURL + routes.updatePUT}`, res)
+    .catch((error) => error);
 }
 
-export default userAPI;
+// User id and password expected
+async function removeUser(res) {
+  return await axios
+    .delete(`${routerURL + routes.deleteDELETE}`, res)
+    .catch((error) => error);
+}
+
+//Token expected
+export const getUser = async (id) => {
+  const response = await client.get(`/users/+${id}`);
+
+  return response.data;
+};
+
+// async function getUser(res) {
+//   return await axios
+//     .get(`${routerURL + routes.deleteDELETE}`, res)
+//     .catch((error) => error);
+// }
