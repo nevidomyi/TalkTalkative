@@ -4,7 +4,7 @@ import { useLocalStorage } from "./useLocalStorage";
 
 export const useAuth = () => {
   const { getItem, setItem } = useLocalStorage();
-  const { token, setToken } = useContext(AuthContext);
+  const { token, setToken, api } = useContext(AuthContext);
 
   useEffect(() => {
     const token = getItem("token");
@@ -23,5 +23,5 @@ export const useAuth = () => {
     setItem("token", "");
   };
 
-  return { token, login, logout };
+  return { token, login, logout, api };
 };
