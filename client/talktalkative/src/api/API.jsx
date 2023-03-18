@@ -8,6 +8,7 @@ export const createAPI = (token) => {
     headers: { Authorization: token },
   });
   return {
+    client,
     // user enpoints
     loginUser: async (data) => (await client.post(`/users/login`, data)).data,
     registerUser: async (data) => (await client.post(`/users/new`, data)).data,

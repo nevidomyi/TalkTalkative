@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState } from "react";
 import { createAPI } from "../api/API";
 
 export const AuthContext = createContext(null);
@@ -8,11 +8,19 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(userToken);
   const [api, setAPI] = useState(createAPI(token));
 
-  useEffect(() => {
+  const login = (token) => {
+    setToken(token);
     setAPI(createAPI(token));
-  }, []);
+    localStorage.setItem("token", token);
+  };
+
+  const logout = () => {
+    setToken(null);
+    setAPI(createAPI(""));
+    localStorage.removeItem("token");
+  };
 
   const { Provider } = AuthContext;
 
-  return <Provider value={{ api, token, setToken }}>{children}</Provider>;
+  return <Provider value={{ api, token, login, logout }}>{children}</Provider>;
 };

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { ImageUpload } from "../../utils/ImageUpload";
-import { createUser } from "../../api/User/userAPI";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 function Signup() {
+  const { api } = useContext(AuthContext);
   const { selectedFile, preview, onSelectFile } = ImageUpload();
   const userData = {
     avatar: "",
@@ -47,7 +49,7 @@ function Signup() {
   };
 
   const submitForm = async () => {
-    const res = await createUser(user);
+    const res = await api.registerUser(user);
     console.log(res);
   };
 

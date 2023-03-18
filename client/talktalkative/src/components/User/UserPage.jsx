@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useAuth } from "../../hooks/useAuth";
-import { useNavigate } from "react-router";
+import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router";
 
 function UserPage() {
-  const { logout, api } = useAuth();
+  const { logout, api } = useContext(AuthContext);
   const [user, setUser] = useState({});
   const navigate = useNavigate();
 

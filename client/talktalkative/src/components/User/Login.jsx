@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-// import { loginUser } from "../../api/User/userAPI";
-import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import { useEffect } from "react";
 
 function Login() {
-  const { login, api } = useAuth();
+  const { login, api, token } = useContext(AuthContext);
   const navigate = useNavigate();
   const credentialsData = {
     email: "",
@@ -23,8 +24,11 @@ function Login() {
   const submitForm = async () => {
     const res = await api.loginUser(credentials);
     login(res.token);
-    navigate(`/user/profile`);
   };
+
+  useEffect(() => {
+    if (token) navigate(`/user/profile`);
+  });
 
   return (
     <div
