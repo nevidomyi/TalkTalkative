@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { loginUser } from "../../api/User/userAPI";
+// import { loginUser } from "../../api/User/userAPI";
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router";
 
 function Login() {
-  const { login } = useAuth();
+  const { login, api } = useAuth();
   const navigate = useNavigate();
   const credentialsData = {
     email: "",
@@ -21,9 +21,9 @@ function Login() {
   };
 
   const submitForm = async () => {
-    const res = await loginUser(credentials);
+    const res = await api.loginUser(credentials);
     login(res.token);
-    navigate(`/user`);
+    navigate(`/user/profile`);
   };
 
   return (

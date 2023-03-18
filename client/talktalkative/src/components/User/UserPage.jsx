@@ -1,19 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
-import { getUser } from "../../api/User/userAPI";
+import { useNavigate } from "react-router";
+import { AuthContext } from "../../context/AuthContext";
 
 function UserPage() {
-  const { api } = useAuth();
+  const { logout, api } = useAuth();
   const [user, setUser] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // api.getUser();
     const fetchData = async () => {
-      const response = await getUser(token, "1");
+      const response = await api.getProfile();
       setUser(response);
     };
     fetchData();
-  }, [token]);
+  }, []);
+
+  const handleLogout = (e) => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <div
@@ -39,7 +45,7 @@ function UserPage() {
             <p className="text-inherit">Chat</p>
           </a>
           <a
-            href=""
+            onClick={handleLogout}
             className="flex justify-center items-center text-center w-32 h-12 bg-awesome-red rounded-2xl text-white text-xl transition ease-in-out delay-50 hover:shadow-inner hover:bg-hower-aw-red cursor-pointer"
           >
             <p className="text-inherit">Log-out</p>

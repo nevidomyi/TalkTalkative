@@ -116,6 +116,7 @@ class UserService {
     try {
       const userId = jwtHandler.verifyToken(token);
 
+      //For double check existing user
       const user = await this.User.findById(userId);
       if (!user) {
         throw new Error('User not found');
