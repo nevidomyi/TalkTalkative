@@ -10,8 +10,7 @@ const usersController = {
   ),
   update: asyncHandler(
     async (req, res) => {
-      const user = await userService.update(req.body);
-      //answer with hashed password, is it bad? 
+      const user = await userService.update(req.headers.authorization, req.body);
       res.json(user);
     }
   ),
@@ -53,7 +52,6 @@ const usersController = {
 
   authenticate: asyncHandler(
     async(req, res) => {
-      console.log(req);
       const user = await userService.authenticate(req.body.email, req.body.password);
       res.json(user);
     }

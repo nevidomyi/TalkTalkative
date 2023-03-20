@@ -34,20 +34,20 @@
 }
 
 .signup-form-bg {
-  background: url("image/Component7.png") scroll no-repeat;
+  background: url("../image/Component7.png") scroll no-repeat;
 }
 
 .login-form-bg {
-  background: url("image/Component8.png") scroll no-repeat;
+  background: url("../image/Component8.png") scroll no-repeat;
 }
 
 .chat-bg {
-  background: url("image/chat-background.png") no-repeat;
+  background: url("../image/chat-background.png") no-repeat;
   background-size: cover;
 }
 
 .home-bg {
-  background: url("image/home-bg.png") no-repeat;
+  background: url("../image/home-bg.png") no-repeat;
   background-size: cover;
 }
 
@@ -56,11 +56,11 @@
 }
 
 .list-style-arrow {
-  list-style-image: url("image/arrow.svg");
+  list-style-image: url("../image/arrow.svg");
 }
 
 .list-style-tag {
-  list-style-image: url("image/hashtag.svg");
+  list-style-image: url("../image/hashtag.svg");
 }
 
 .textarea {

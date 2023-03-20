@@ -84,7 +84,7 @@ function Login() {
         </div>
         <div id="signin" className="flex flex-col items-center">
           <span className="break-words mt-6">
-            You already have profile? Not a problem
+            You don’t have profile? Not a problem
           </span>
           <a
             href="/signup"

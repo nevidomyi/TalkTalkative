@@ -4,7 +4,7 @@ import Home from "../components/Home";
 import Login from "../components/User/Login";
 import Signup from "../components/User/Signup";
 import UserPage from "../components/User/UserPage";
-// import UserPageEdit from "../components/User/UserPageEdit";
+import UserPageEdit from "../components/User/UserPageEdit";
 
 const router = createBrowserRouter([
   {
@@ -31,10 +31,10 @@ const router = createBrowserRouter([
     path: "/user/profile",
     element: <UserPage />,
   },
-  // {
-  //   path: "/user/edit",
-  //   element: <UserPageEdit />,
-  // },
+  {
+    path: "/user/edit",
+    element: <UserPageEdit />,
+  },
 ]);
 
 export default router;

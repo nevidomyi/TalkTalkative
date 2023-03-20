@@ -15,7 +15,7 @@ export const createAPI = (token) => {
     getUser: async (id) => (await client.get(`/users/${id}`)).data,
     getProfile: async () => (await client.get(`/users/profile/`)).data,
     updateUser: async (id, data) =>
-      (await client.put(`/users/${id}`, data)).data,
+      (await client.put(`/users/${id}`, data)).data, 
     deleteUser: async (id) => (await client.delete(`/users/${id}`)).data,
     // chat endpoints
   };
