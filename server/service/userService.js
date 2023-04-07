@@ -7,35 +7,29 @@ class UserService {
 
   async create(payload) {
     const data = userValidation(payload);
-    console.log(data);
+
     if (!data.error) {
-      return await this.User.create(data.value);
+      const user = await this.User.create(data.value);
+      const token = jwtHandler.issueToken({ userId: user._id });
+
+      return token;
     } else {
       return data.error;
     }
   }
 
   async update(token, payload) {
-    //todo add validation
-
-    // console.log(payload);
-    // console.log("token " + token);
-
     let userId = 0;
 
+    //todo add validation
     try {
       userId = jwtHandler.verifyToken(token);
     } catch (error) {
       console.log(error);
       throw new Error("Token's issues");
-    } finally {
     }
 
-    return await this.User.updateOne({"id" : userId}, payload);
- 
-    // return await this.User.findByIdAndUpdate(userId, payload, {
-    //   returnDocument: "after",
-    // });
+    return await this.User.updateOne({ _id: userId }, payload);
   }
 
   async delete(id, password) {

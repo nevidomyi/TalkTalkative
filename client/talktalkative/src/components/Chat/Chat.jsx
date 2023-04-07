@@ -2,10 +2,10 @@ import React from "react";
 
 function Chat() {
   return (
-    <div id="chat-container" className="min-h-screen flex flex-col py-8">
+    <div id="chat-container" className="flex h-full flex-col">
       <div
         id="chat-navbar"
-        className="flex max-h-20 items-center px-10 pb-6 justify-between relative"
+        className="flex items-center px-10 pb-6 pt-8 justify-between relative"
       >
         <div
           href=""
@@ -19,10 +19,10 @@ function Chat() {
         <div id="user-profile" className="flex">
           <div className="flex flex-col justify-center items-end mr-2 text-sm">
             <a>@BoJack_horseman</a>
-            <a href="/user/edit" className="pr-6 text-awesome-blue">
+            <a href="/user/edit" className="pr-6 text-awesome-blue hover:underline">
               📝Edit
             </a>
-            <a href="" className="text-awesome-red">
+            <a href="" className="text-awesome-red hover:underline">
               🚪Log out
             </a>
           </div>
@@ -36,7 +36,7 @@ function Chat() {
           </span>
         </div>
       </div>
-      <div id="chat" className="min-h-full grid grid-cols-6">
+      <div id="chat" className="grid h-full grid-cols-6">
         <div id="chat-list" className="col-span-1">
           <div className="flex items-center justify-center py-2 my-bg-gradient">
             <span>Rooms for you</span>
@@ -58,8 +58,100 @@ function Chat() {
         <div id="general-area" className="col-span-4 px-6">
           <div
             id="msg-container"
-            className="max-h-96 px-10  chat-bg border rounded-b-2xl border-t-0 border-black overflow-auto"
+            className="px-10 h-45-rem overflow-auto chat-bg border rounded-b-2xl border-t-0 border-black"
           >
+            <div id="msg" className="flex mt-4 last:mb-4 relative">
+              <div className="h-14 w-14 flex-shrink-0 rounded-full border border-black overflow-hidden">
+                <img src="..\image\leonardo_profile.jpg" alt="" />
+              </div>
+              <div className="bg-gray-200 ml-2 px-2 pb-5 rounded-r-lg rounded-b-lg">
+                <div>
+                  <span className="text-xs text-awesome-blue">
+                    @Leonardo_Da_Vinci
+                  </span>
+                </div>
+                <div>
+                  <p className="text-sm">
+                    Vestibulum ante ipsum primis in faucibus orci luctus et
+                    ultrices posuere cubilia curae; Curabitur nulla quam, mattis
+                    ac felis et, mollis scelerisque massa. Praesent diam dolor.
+                    🙊
+                  </p>
+                </div>
+                <div className="text-xs absolute right-1 bottom-1">
+                  15:33 02.03.23
+                </div>
+              </div>
+            </div>
+            <div id="msg" className="flex mt-4 last:mb-4 relative">
+              <div className="h-14 w-14 flex-shrink-0 rounded-full border border-black overflow-hidden">
+                <img src="..\image\leonardo_profile.jpg" alt="" />
+              </div>
+              <div className="bg-gray-200 ml-2 px-2 pb-5 rounded-r-lg rounded-b-lg">
+                <div>
+                  <span className="text-xs text-awesome-blue">
+                    @Leonardo_Da_Vinci
+                  </span>
+                </div>
+                <div>
+                  <p className="text-sm">
+                    Vestibulum ante ipsum primis in faucibus orci luctus et
+                    ultrices posuere cubilia curae; Curabitur nulla quam, mattis
+                    ac felis et, mollis scelerisque massa. Praesent diam dolor.
+                    🙊
+                  </p>
+                </div>
+                <div className="text-xs absolute right-1 bottom-1">
+                  15:33 02.03.23
+                </div>
+              </div>
+            </div>
+            <div id="msg" className="flex mt-4 last:mb-4 relative">
+              <div className="h-14 w-14 flex-shrink-0 rounded-full border border-black overflow-hidden">
+                <img src="..\image\leonardo_profile.jpg" alt="" />
+              </div>
+              <div className="bg-gray-200 ml-2 px-2 pb-5 rounded-r-lg rounded-b-lg">
+                <div>
+                  <span className="text-xs text-awesome-blue">
+                    @Leonardo_Da_Vinci
+                  </span>
+                </div>
+                <div>
+                  <p className="text-sm">
+                    Vestibulum ante ipsum primis in faucibus orci luctus et
+                    ultrices posuere cubilia curae; Curabitur nulla quam, mattis
+                    ac felis et, mollis scelerisque massa. Praesent diam dolor.
+                    🙊
+                  </p>
+                </div>
+                <div className="text-xs absolute right-1 bottom-1">
+                  15:33 02.03.23
+                </div>
+              </div>
+            </div>
+            <div id="msg" className="flex mt-4 last:mb-4 relative">
+              <div className="h-14 w-14 flex-shrink-0 rounded-full border border-black overflow-hidden">
+                <img src="..\image\leonardo_profile.jpg" alt="" />
+              </div>
+              <div className="bg-gray-200 ml-2 px-2 pb-5 rounded-r-lg rounded-b-lg">
+                <div>
+                  <span className="text-xs text-awesome-blue">
+                    @Leonardo_Da_Vinci
+                  </span>
+                </div>
+                <div>
+                  <p className="text-sm">
+                    Vestibulum ante ipsum primis in faucibus orci luctus et
+                    ultrices posuere cubilia curae; Curabitur nulla quam, mattis
+                    ac felis et, mollis scelerisque massa. Praesent diam dolor.
+                    🙊
+                  </p>
+                </div>
+                <div className="text-xs absolute right-1 bottom-1">
+                  15:33 02.03.23
+                </div>
+              </div>
+            </div>
             <div id="msg" className="flex mt-4 last:mb-4 relative">
               <div className="h-14 w-14 flex-shrink-0 rounded-full border border-black overflow-hidden">
                 <img src="..\image\leonardo_profile.jpg" alt="" />

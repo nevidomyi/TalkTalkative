@@ -1,30 +1,8 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router";
-import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
+import { useHooks } from "../../hooks/hooks";
 
 function Login() {
-  const { login, api, token } = useContext(AuthContext);
-  const navigate = useNavigate();
-  const credentialsData = {
-    email: "",
-    password: "",
-  };
-
-  const [credentials, setCredentials] = useState(credentialsData);
-
-  const handleInputChange = (e) => {
-    setCredentials((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const submitForm = async () => {
-    const res = await api.loginUser(credentials);
-    login(res.token);
-  };
+  const { handleInputChange, logIn, token, navigate } = useHooks();
 
   useEffect(() => {
     if (token) navigate(`/user/profile`);
@@ -77,7 +55,7 @@ function Login() {
             <input
               type="button"
               value="Sign-in"
-              onClick={submitForm}
+              onClick={logIn}
               className="w-32 h-12 mt-10 mb-6 bg-awesome-blue rounded-2xl text-white text-xl transition ease-in-out delay-50 hover:shadow-inner hover:bg-hower-aw-blue cursor-pointer"
             />
           </form>

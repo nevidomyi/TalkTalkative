@@ -1,57 +1,12 @@
-import React, { useState } from "react";
-import { ImageUpload } from "../../utils/ImageUpload";
-import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import React, { useEffect } from "react";
+import { useHooks } from "../../hooks/hooks";
 
 function Signup() {
-  const { api } = useContext(AuthContext);
-  const { selectedFile, preview, onSelectFile } = ImageUpload();
-  const userData = {
-    avatar: "",
-    email: "",
-    password: "",
-    username: "",
-    contact_info: "",
-    status: 1,
-  };
+  const { handleFileUpload, handleInputChange, signUp, selectedFile, token, preview, navigate } = useHooks();
 
-  const [user, setUserData] = useState(userData);
-
-  //  Is it good way to use promise here?
-  const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
-
-  const handleFileUpload = async (e) => {
-    const file = e.target.files[0];
-    const base64 = await convertToBase64(file);
-    setUserData((prev) => ({
-      ...prev,
-      avatar: base64,
-    }));
-    onSelectFile(e);
-  };
-
-  const handleInputChange = (e) => {
-    setUserData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const submitForm = async () => {
-    const res = await api.registerUser(user);
-    console.log(res);
-  };
+  useEffect(() => {
+    if (token) navigate(`/user/profile`);
+  });
 
   return (
     <div
@@ -125,7 +80,7 @@ function Signup() {
             <input
               type="button"
               value="Sign-up"
-              onClick={submitForm}
+              onClick={signUp}
               className="w-32 h-12 mt-5 bg-awesome-red rounded-2xl text-white text-xl transition ease-in-out delay-50 hover:shadow-inner hover:bg-hower-aw-red cursor-pointer"
             />
           </form>

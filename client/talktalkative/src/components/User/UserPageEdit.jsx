@@ -5,8 +5,8 @@ import { useNavigate } from "react-router";
 
 function UserPageEdit() {
   const { selectedFile, preview, onSelectFile } = ImageUpload();
-  const { api } = useContext(AuthContext);
-  // const navigate = useNavigate();
+  const { logout, api } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const userData = {
     id: "",
@@ -58,11 +58,17 @@ function UserPageEdit() {
   };
 
   const submitForm = async () => {
-    console.log(userChanges);
     const res = await api.updateUser(userChanges.id, userChanges);
+
+    if (res.matchedCount === 1 && res.modifiedCount === 1) {
+      navigate("/user/profile");
+    }
   };
 
-  console.log(userChanges);
+  const handleLogout = (e) => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <div
@@ -82,13 +88,13 @@ function UserPageEdit() {
 
         <div id="btn-group" className="flex space-x-8">
           <a
-            href=""
+            href="/chat"
             className="flex justify-center items-center text-center w-32 h-12 bg-awesome-blue rounded-2xl text-white text-xl transition ease-in-out delay-50 hover:shadow-inner hover:bg-hower-aw-blue cursor-pointer"
           >
             <p className="text-inherit">Chat</p>
           </a>
           <a
-            href=""
+            onClick={handleLogout}
             className="flex justify-center items-center text-center w-32 h-12 bg-awesome-red rounded-2xl text-white text-xl transition ease-in-out delay-50 hover:shadow-inner hover:bg-hower-aw-red cursor-pointer"
           >
             <p className="text-inherit">Log-out</p>

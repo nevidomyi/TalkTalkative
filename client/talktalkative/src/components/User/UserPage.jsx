@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import { useNavigate } from "react-router";
+import { useHooks } from "../../hooks/hooks";
 
 function UserPage() {
-  const { logout, api } = useContext(AuthContext);
+  const { logOut } = useHooks();
+  const { api } = useContext(AuthContext);
   const [user, setUser] = useState({});
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,11 +14,6 @@ function UserPage() {
     };
     fetchData();
   }, []);
-
-  const handleLogout = (e) => {
-    logout();
-    navigate("/login");
-  };
 
   return (
     <div
@@ -38,13 +33,13 @@ function UserPage() {
 
         <div id="btn-group" className="flex space-x-8">
           <a
-            href=""
+            href="/chat"
             className="flex justify-center items-center text-center w-32 h-12 bg-awesome-blue rounded-2xl text-white text-xl transition ease-in-out delay-50 hover:shadow-inner hover:bg-hower-aw-blue cursor-pointer"
           >
             <p className="text-inherit">Chat</p>
           </a>
           <a
-            onClick={handleLogout}
+            onClick={logOut}
             className="flex justify-center items-center text-center w-32 h-12 bg-awesome-red rounded-2xl text-white text-xl transition ease-in-out delay-50 hover:shadow-inner hover:bg-hower-aw-red cursor-pointer"
           >
             <p className="text-inherit">Log-out</p>
