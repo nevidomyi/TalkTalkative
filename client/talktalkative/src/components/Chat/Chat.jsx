@@ -1,6 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
+import io from "socket.io-client";
+import { useHooks } from "../../hooks/hooks";
+import Message from "./Message";
+
+const socket = io.connect("http://localhost:3001");
 
 function Chat() {
+  const { user } = useHooks();
+  const [message, setMessage] = useState('');
+
+
+  const typingHandler = (e) => {
+    setMessage((prev) => (
+      prev = e.target.value
+    ));
+  }
+
+  const sendHandler = (e) => {
+    socket.emit("message", e);
+  }
+
   return (
     <div id="chat-container" className="flex h-full flex-col">
       <div
@@ -18,8 +37,8 @@ function Chat() {
         </div>
         <div id="user-profile" className="flex">
           <div className="flex flex-col justify-center items-end mr-2 text-sm">
-            <a>@BoJack_horseman</a>
-            <a href="/user/edit" className="pr-6 text-awesome-blue hover:underline">
+            <a href="/user/profile" className="hover:underline">{`@` + user.username}</a>
+            <a href="/user/edit" className="text-awesome-blue hover:underline">
               📝Edit
             </a>
             <a href="" className="text-awesome-red hover:underline">
@@ -27,7 +46,7 @@ function Chat() {
             </a>
           </div>
           <div className="h-16 w-16 border border-black rounded-full overflow-hidden">
-            <img src="..\image\BoJack_profile.png" alt="" />
+            <img src={user.avatar} alt="" />
           </div>
         </div>
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 text-xl font-bold">
@@ -83,264 +102,23 @@ function Chat() {
                 </div>
               </div>
             </div>
-            <div id="msg" className="flex mt-4 last:mb-4 relative">
-              <div className="h-14 w-14 flex-shrink-0 rounded-full border border-black overflow-hidden">
-                <img src="..\image\leonardo_profile.jpg" alt="" />
-              </div>
-              <div className="bg-gray-200 ml-2 px-2 pb-5 rounded-r-lg rounded-b-lg">
-                <div>
-                  <span className="text-xs text-awesome-blue">
-                    @Leonardo_Da_Vinci
-                  </span>
-                </div>
-                <div>
-                  <p className="text-sm">
-                    Vestibulum ante ipsum primis in faucibus orci luctus et
-                    ultrices posuere cubilia curae; Curabitur nulla quam, mattis
-                    ac felis et, mollis scelerisque massa. Praesent diam dolor.
-                    🙊
-                  </p>
-                </div>
-                <div className="text-xs absolute right-1 bottom-1">
-                  15:33 02.03.23
-                </div>
-              </div>
-            </div>
-            <div id="msg" className="flex mt-4 last:mb-4 relative">
-              <div className="h-14 w-14 flex-shrink-0 rounded-full border border-black overflow-hidden">
-                <img src="..\image\leonardo_profile.jpg" alt="" />
-              </div>
-              <div className="bg-gray-200 ml-2 px-2 pb-5 rounded-r-lg rounded-b-lg">
-                <div>
-                  <span className="text-xs text-awesome-blue">
-                    @Leonardo_Da_Vinci
-                  </span>
-                </div>
-                <div>
-                  <p className="text-sm">
-                    Vestibulum ante ipsum primis in faucibus orci luctus et
-                    ultrices posuere cubilia curae; Curabitur nulla quam, mattis
-                    ac felis et, mollis scelerisque massa. Praesent diam dolor.
-                    🙊
-                  </p>
-                </div>
-                <div className="text-xs absolute right-1 bottom-1">
-                  15:33 02.03.23
-                </div>
-              </div>
-            </div>
-            <div id="msg" className="flex mt-4 last:mb-4 relative">
-              <div className="h-14 w-14 flex-shrink-0 rounded-full border border-black overflow-hidden">
-                <img src="..\image\leonardo_profile.jpg" alt="" />
-              </div>
-              <div className="bg-gray-200 ml-2 px-2 pb-5 rounded-r-lg rounded-b-lg">
-                <div>
-                  <span className="text-xs text-awesome-blue">
-                    @Leonardo_Da_Vinci
-                  </span>
-                </div>
-                <div>
-                  <p className="text-sm">
-                    Vestibulum ante ipsum primis in faucibus orci luctus et
-                    ultrices posuere cubilia curae; Curabitur nulla quam, mattis
-                    ac felis et, mollis scelerisque massa. Praesent diam dolor.
-                    🙊
-                  </p>
-                </div>
-                <div className="text-xs absolute right-1 bottom-1">
-                  15:33 02.03.23
-                </div>
-              </div>
-            </div>
-            <div id="msg" className="flex mt-4 last:mb-4 relative">
-              <div className="h-14 w-14 flex-shrink-0 rounded-full border border-black overflow-hidden">
-                <img src="..\image\leonardo_profile.jpg" alt="" />
-              </div>
-              <div className="bg-gray-200 ml-2 px-2 pb-5 rounded-r-lg rounded-b-lg">
-                <div>
-                  <span className="text-xs text-awesome-blue">
-                    @Leonardo_Da_Vinci
-                  </span>
-                </div>
-                <div>
-                  <p className="text-sm">
-                    Vestibulum ante ipsum primis in faucibus orci luctus et
-                    ultrices posuere cubilia curae; Curabitur nulla quam, mattis
-                    ac felis et, mollis scelerisque massa. Praesent diam dolor.
-                    🙊
-                  </p>
-                </div>
-                <div className="text-xs absolute right-1 bottom-1">
-                  15:33 02.03.23
-                </div>
-              </div>
-            </div>
-            <div id="msg" className="flex mt-4 last:mb-4 relative">
-              <div className="h-14 w-14 flex-shrink-0 rounded-full border border-black overflow-hidden">
-                <img src="..\image\leonardo_profile.jpg" alt="" />
-              </div>
-              <div className="bg-gray-200 ml-2 px-2 pb-5 rounded-r-lg rounded-b-lg">
-                <div>
-                  <span className="text-xs text-awesome-blue">
-                    @Leonardo_Da_Vinci
-                  </span>
-                </div>
-                <div>
-                  <p className="text-sm">
-                    Vestibulum ante ipsum primis in faucibus orci luctus et
-                    ultrices posuere cubilia curae; Curabitur nulla quam, mattis
-                    ac felis et, mollis scelerisque massa. Praesent diam dolor.
-                    🙊
-                  </p>
-                </div>
-                <div className="text-xs absolute right-1 bottom-1">
-                  15:33 02.03.23
-                </div>
-              </div>
-            </div>
-            <div id="msg" className="flex mt-4 last:mb-4 relative">
-              <div className="h-14 w-14 flex-shrink-0 rounded-full border border-black overflow-hidden">
-                <img src="..\image\leonardo_profile.jpg" alt="" />
-              </div>
-              <div className="bg-gray-200 ml-2 px-2 pb-5 rounded-r-lg rounded-b-lg">
-                <div>
-                  <span className="text-xs text-awesome-blue">
-                    @Leonardo_Da_Vinci
-                  </span>
-                </div>
-                <div>
-                  <p className="text-sm">
-                    Vestibulum ante ipsum primis in faucibus orci luctus et
-                    ultrices posuere cubilia curae; Curabitur nulla quam, mattis
-                    ac felis et, mollis scelerisque massa. Praesent diam dolor.
-                    🙊
-                  </p>
-                </div>
-                <div className="text-xs absolute right-1 bottom-1">
-                  15:33 02.03.23
-                </div>
-              </div>
-            </div>
-            <div id="msg" className="flex mt-4 last:mb-4 relative">
-              <div className="h-14 w-14 flex-shrink-0 rounded-full border border-black overflow-hidden">
-                <img src="..\image\leonardo_profile.jpg" alt="" />
-              </div>
-              <div className="bg-gray-200 ml-2 px-2 pb-5 rounded-r-lg rounded-b-lg">
-                <div>
-                  <span className="text-xs text-awesome-blue">
-                    @Leonardo_Da_Vinci
-                  </span>
-                </div>
-                <div>
-                  <p className="text-sm">
-                    Vestibulum ante ipsum primis in faucibus orci luctus et
-                    ultrices posuere cubilia curae; Curabitur nulla quam, mattis
-                    ac felis et, mollis scelerisque massa. Praesent diam dolor.
-                    🙊
-                  </p>
-                </div>
-                <div className="text-xs absolute right-1 bottom-1">
-                  15:33 02.03.23
-                </div>
-              </div>
-            </div>
-            <div id="msg" className="flex mt-4 last:mb-4 relative">
-              <div className="h-14 w-14 flex-shrink-0 rounded-full border border-black overflow-hidden">
-                <img src="..\image\leonardo_profile.jpg" alt="" />
-              </div>
-              <div className="bg-gray-200 ml-2 px-2 pb-5 rounded-r-lg rounded-b-lg">
-                <div>
-                  <span className="text-xs text-awesome-blue">
-                    @Leonardo_Da_Vinci
-                  </span>
-                </div>
-                <div>
-                  <p className="text-sm">
-                    Vestibulum ante ipsum primis in faucibus orci luctus et
-                    ultrices posuere cubilia curae; Curabitur nulla quam, mattis
-                    ac felis et, mollis scelerisque massa. Praesent diam dolor.
-                    🙊
-                  </p>
-                </div>
-                <div className="text-xs absolute right-1 bottom-1">
-                  15:33 02.03.23
-                </div>
-              </div>
-            </div>
-            <div id="msg" className="flex mt-4 last:mb-4 relative">
-              <div className="h-14 w-14 flex-shrink-0 rounded-full border border-black overflow-hidden">
-                <img src="..\image\leonardo_profile.jpg" alt="" />
-              </div>
-              <div className="bg-gray-200 ml-2 px-2 pb-5 rounded-r-lg rounded-b-lg">
-                <div>
-                  <span className="text-xs text-awesome-blue">
-                    @Leonardo_Da_Vinci
-                  </span>
-                </div>
-                <div>
-                  <p className="text-sm">
-                    Vestibulum ante ipsum primis in faucibus orci luctus et
-                    ultrices posuere cubilia curae; Curabitur nulla quam, mattis
-                    ac felis et, mollis scelerisque massa. Praesent diam dolor.
-                    🙊
-                  </p>
-                </div>
-                <div className="text-xs absolute right-1 bottom-1">
-                  15:33 02.03.23
-                </div>
-              </div>
-            </div>
-            <div id="msg" className="flex mt-4 last:mb-4 relative">
-              <div className="h-14 w-14 flex-shrink-0 rounded-full border border-black overflow-hidden">
-                <img src="..\image\leonardo_profile.jpg" alt="" />
-              </div>
-              <div className="bg-gray-200 ml-2 px-2 pb-5 rounded-r-lg rounded-b-lg">
-                <div>
-                  <span className="text-xs text-awesome-blue">
-                    @Leonardo_Da_Vinci
-                  </span>
-                </div>
-                <div>
-                  <p className="text-sm">
-                    Vestibulum ante ipsum primis in faucibus orci luctus et
-                    ultrices posuere cubilia curae; Curabitur nulla quam, mattis
-                    ac felis et, mollis scelerisque massa. Praesent diam dolor.
-                    🙊
-                  </p>
-                </div>
-                <div className="text-xs absolute right-1 bottom-1">
-                  15:33 02.03.23
-                </div>
-              </div>
-            </div>
-            <div id="msg" className="flex mt-4 last:mb-4 relative">
-              <div className="h-14 w-14 flex-shrink-0 rounded-full border border-black overflow-hidden">
-                <img src="..\image\leonardo_profile.jpg" alt="" />
-              </div>
-              <div className="bg-gray-200 ml-2 px-2 pb-5 rounded-r-lg rounded-b-lg">
-                <div>
-                  <span className="text-xs text-awesome-blue">
-                    @Leonardo_Da_Vinci
-                  </span>
-                </div>
-                <div>
-                  <p className="text-sm">
-                    Vestibulum ante ipsum primis in faucibus orci luctus et
-                    ultrices posuere cubilia curae; Curabitur nulla quam, mattis
-                    ac felis et, mollis scelerisque massa. Praesent diam dolor.
-                    🙊
-                  </p>
-                </div>
-                <div className="text-xs absolute right-1 bottom-1">
-                  15:33 02.03.23
-                </div>
-              </div>
-            </div>
+            <Message />
+            <Message />
+            <Message />
+            <Message />
+            <Message />
+            <Message />
+            <Message />
+            <Message />
+            <Message />
+            <Message />
           </div>
           <div className="flex flex-row items-center pt-3">
             <textarea
-              name=""
-              id=""
+              name="message"
+              id="message"
+              value={message}
+              onChange={typingHandler}
               className="textarea text-sm h-14 resize-none border border-black rounded-xl"
               placeholder="...type smt here"
             ></textarea>
@@ -363,6 +141,8 @@ function Chat() {
             <input
               type="button"
               value="Send"
+              for="message"
+              onClick={message}
               className="w-32 h-14 bg-awesome-blue rounded-2xl text-white text-xl transition ease-in-out delay-50 hover:shadow-inner hover:bg-hower-aw-blue cursor-pointer"
             />
           </div>

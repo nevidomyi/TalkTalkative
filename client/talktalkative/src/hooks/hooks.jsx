@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router";
 import { ImageUpload } from "../utils/ImageUpload";
@@ -7,11 +7,6 @@ export function useHooks() {
   const { api, login, logout, token } = useContext(AuthContext);
   const { selectedFile, preview, onSelectFile } = ImageUpload();
   const navigate = useNavigate();
-
-  const credentialsData = {
-    email: "",
-    password: "",
-  };
 
   const userData = {
     avatar: "",
@@ -22,8 +17,15 @@ export function useHooks() {
     status: 1,
   };
 
-  const [credentials, setCredentials] = useState(credentialsData);
   const [user, setUserData] = useState(userData);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await api.getProfile();
+      setUserData(response);
+    };
+    fetchData();
+  }, []);
 
   const convertToBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -49,7 +51,7 @@ export function useHooks() {
   };
 
   const handleInputChange = (e) => {
-    setCredentials((prev) => ({
+    setUserData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
@@ -61,7 +63,7 @@ export function useHooks() {
   };
 
   const logIn = async () => {
-    const res = await api.loginUser(credentials);
+    const res = await api.loginUser(user);
     login(res.token);
   };
 
@@ -70,15 +72,25 @@ export function useHooks() {
     navigate("/login");
   };
 
+  const update = async () => {
+    const res = await api.updateUser(user.id, user);
+
+    if (res.matchedCount === 1 && res.modifiedCount === 1) {
+      navigate("/user/profile");
+    }
+  };
+
   return {
     handleFileUpload,
     handleInputChange,
     logOut,
     signUp,
     logIn,
+    update,
+    navigate,
     selectedFile,
     preview,
     token,
-    navigate,
+    user
   }
 }

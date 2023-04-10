@@ -1,74 +1,8 @@
-import React, { useState, useContext, useEffect } from "react";
-import { AuthContext } from "../../context/AuthContext";
-import { ImageUpload } from "../../utils/ImageUpload";
-import { useNavigate } from "react-router";
+import React from "react";
+import { useHooks } from "../../hooks/hooks";
 
 function UserPageEdit() {
-  const { selectedFile, preview, onSelectFile } = ImageUpload();
-  const { logout, api } = useContext(AuthContext);
-  const navigate = useNavigate();
-
-  const userData = {
-    id: "",
-    username: "",
-    email: "",
-    contact_info: "",
-    avatar: "",
-    status: "",
-  };
-
-  const [userChanges, setUserChanges] = useState(userData);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await api.getProfile();
-      setUserChanges(res);
-    };
-    fetchData();
-  }, []);
-
-  const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
-
-  const handleFileUpload = async (e) => {
-    const file = e.target.files[0];
-    const base64 = await convertToBase64(file);
-    setUserChanges((prev) => ({
-      ...prev,
-      avatar: base64,
-    }));
-    onSelectFile(e);
-  };
-
-  const handleInputChange = (e) => {
-    setUserChanges((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const submitForm = async () => {
-    const res = await api.updateUser(userChanges.id, userChanges);
-
-    if (res.matchedCount === 1 && res.modifiedCount === 1) {
-      navigate("/user/profile");
-    }
-  };
-
-  const handleLogout = (e) => {
-    logout();
-    navigate("/login");
-  };
+  const { logOut, user, selectedFile, preview, handleFileUpload, handleInputChange, update } = useHooks();
 
   return (
     <div
@@ -94,7 +28,7 @@ function UserPageEdit() {
             <p className="text-inherit">Chat</p>
           </a>
           <a
-            onClick={handleLogout}
+            onClick={logOut}
             className="flex justify-center items-center text-center w-32 h-12 bg-awesome-red rounded-2xl text-white text-xl transition ease-in-out delay-50 hover:shadow-inner hover:bg-hower-aw-red cursor-pointer"
           >
             <p className="text-inherit">Log-out</p>
@@ -104,7 +38,7 @@ function UserPageEdit() {
       <div id="user-card" className="flex mt-10 lg:px-20 xl:px-40 2xl:px-60 ">
         <div className="flex flex-col flex-shrink-0 w-auto mr-4 items-center justify-between">
           <div className="relative overflow-hidden w-52 h-52 rounded-full border border-black">
-            <img src={selectedFile ? preview : userChanges.avatar} alt="" />
+            <img src={selectedFile ? preview : user.avatar} alt="" />
             <label
               htmlFor="img"
               className="flex justify-center items-center h-10 absolute bottom-0 right-1/2 translate-x-1/2 w-full bg-gray-400/75 hover:bg-gray-400 cursor-pointer"
@@ -117,7 +51,7 @@ function UserPageEdit() {
               form="editForm"
               type="button"
               value="Save"
-              onClick={submitForm}
+              onClick={update}
               className="w-32 h-12 mt-5 bg-white border  border-awesome-blue rounded-2xl text-awesome-blue text-xl transition ease-in-out delay-50 hover:shadow-inner hover:bg-awesome-blue hover:text-white cursor-pointer"
             />
             <a
@@ -139,7 +73,7 @@ function UserPageEdit() {
             <input
               type="text"
               name="username"
-              value={userChanges.username}
+              value={user.username}
               onChange={handleInputChange}
               placeholder="Username"
               className="w-64 h-9 px-4 text-l  text-awesome-blue border rounded-3xl border-black transition ease-in-out delay-50 hover:bg-gray-200"
@@ -147,7 +81,7 @@ function UserPageEdit() {
             <input
               type="text"
               name="email"
-              value={userChanges.email}
+              value={user.email}
               onChange={handleInputChange}
               placeholder="Email"
               className="w-64 h-9 px-4 text-l  text-awesome-blue border rounded-3xl border-black transition ease-in-out delay-50 hover:bg-gray-200"
@@ -170,7 +104,7 @@ function UserPageEdit() {
               rows="10"
               maxLength="120"
               autoComplete="off"
-              value={userChanges.contact_info}
+              value={user.contact_info}
               onChange={handleInputChange}
               placeholder="Contact info"
               className="w-full h-36 px-4 text-l resize-none overflow-hidden text-awesome-blue border rounded-3xl border-black transition ease-in-out delay-50 hover:bg-gray-200"

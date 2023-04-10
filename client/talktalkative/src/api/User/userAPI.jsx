@@ -1,17 +1,5 @@
 import axios from "axios";
 
-// const API_URL = "http://localhost:3001";
-
-// const routerURL = "http://localhost:3001/users/";
-
-// const routes = {
-//   createPOST: "/new",
-//   loginPOST: "/login",
-//   updatePUT: "/update",
-//   deleteDELETE: "/delete",
-//   tokenGET: "/",
-// };
-
 // User objext expected
 export const createUser = async (req) => {
   const response = await axios.post("/users/new", req);
@@ -46,8 +34,3 @@ export const getUser = async (id) => {
   return response.data;
 };
 
-// async function getUser(res) {
-//   return await axios
-//     .get(`${routerURL + routes.deleteDELETE}`, res)
-//     .catch((error) => error);
-// }

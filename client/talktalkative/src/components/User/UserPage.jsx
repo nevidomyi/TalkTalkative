@@ -3,17 +3,17 @@ import { AuthContext } from "../../context/AuthContext";
 import { useHooks } from "../../hooks/hooks";
 
 function UserPage() {
-  const { logOut } = useHooks();
-  const { api } = useContext(AuthContext);
-  const [user, setUser] = useState({});
+  const { logOut, user } = useHooks();
+  // const { api } = useContext(AuthContext);
+  // const [user, setUser] = useState({});
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await api.getProfile();
-      setUser(response);
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await api.getProfile();
+  //     setUser(response);
+  //   };
+  //   fetchData();
+  // }, []);
 
   return (
     <div

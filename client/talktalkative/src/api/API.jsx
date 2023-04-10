@@ -18,5 +18,6 @@ export const createAPI = (token) => {
       (await client.put(`/users/${id}`, data)).data, 
     deleteUser: async (id) => (await client.delete(`/users/${id}`)).data,
     // chat endpoints
+    
   };
 };
