@@ -55,6 +55,10 @@
   max-width: 100rem;
 }
 
+.min-w-message {
+  min-width: 120px;
+}
+
 .list-style-arrow {
   list-style-image: url("../image/arrow.svg");
 }

@@ -1,20 +1,10 @@
-const { json } = require("express");
-const Message = require("../models/message");
+const { asyncHandler } = require("./utils");
+const chatService = require("../service/chatService");
 
-module.exports = (io) => {
-  io.on("connection", (client) => {
-    console.log("New socket connection");
-
-    client.on("disconnect", () => {
-      console.log("user disconnected");
-    });
-
-    client.on("message", (data) => {
-      // const message = {
-      //   content: data.content,
-      // };
-      console.log(data);
-      // io.emit("message", data);
-    });
-  });
+const chatController = {
+  getMessages: asyncHandler(async (req, res) => {
+    const messages = await chatService.getMessages();
+    res.json(messages);
+  }),
 };
+module.exports = chatController;

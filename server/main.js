@@ -46,4 +46,4 @@ io = require("socket.io")(server, {
     origin: "http://localhost:5173",
   },
 });
-require("./controllers/chatController")(io);
+require("./controllers/socketController")(io);

@@ -1,14 +1,62 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import io from "socket.io-client";
 import { useHooks } from "../../hooks/hooks";
+import { AuthContext } from "../../context/AuthContext";
 import Message from "./Message";
 
 const socket = io.connect("http://localhost:3001");
 
-function Chat() {
-  const { user } = useHooks();
-  const [message, setMessage] = useState('');
+const dateFormate = (dateISO) => {
+  const date = new Date(dateISO);
 
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+
+  const day = date.getDate().toString().padStart(2, '0');
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const year = date.getFullYear().toString().slice(2);
+
+  const formattedDate = `${hours}:${minutes} ${day}.${month}.${year}`;
+
+  return formattedDate;
+}
+
+function Chat() {
+  const { api } = useContext(AuthContext);
+  const { user } = useHooks();
+  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState('');
+  const lastMessageRef = useRef(null);
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      const res = await api.getMessages();
+
+      res.map(async (message) => {
+        const owner = await api.getUser(message.owner);
+
+        setMessages((prev) => [...prev, {
+          avatar: owner.avatar,
+          username: owner.username,
+          timeStamp: dateFormate(message.createdAt),
+          text: message.text,
+        }]);
+      })
+    };
+    fetchMessages();
+  }, [])
+
+  useEffect(() => {
+    socket.on("messageResponse", (data) => {
+      data.timeStamp = dateFormate(data.timeStamp);
+
+      setMessages((prev) => [...prev, data])
+    });
+  }, [socket]);
+
+  useEffect(() => {
+    lastMessageRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   const typingHandler = (e) => {
     setMessage((prev) => (
@@ -16,8 +64,25 @@ function Chat() {
     ));
   }
 
-  const sendHandler = (e) => {
-    socket.emit("message", e);
+  const sendHandler = () => {
+    setMessage((prev) => (
+      prev = prev.trim()
+    ));
+    if (message.length != 0) {
+      setMessage('');
+      socket.emit("message", {
+        text: message,
+        owner: user.id,
+        username: user.username,
+        avatar: user.avatar,
+      });
+    }
+  }
+
+  const keyHandler = (e) => {
+    if (e.key === "Enter") {
+      sendHandler();
+    }
   }
 
   return (
@@ -79,39 +144,15 @@ function Chat() {
             id="msg-container"
             className="px-10 h-45-rem overflow-auto chat-bg border rounded-b-2xl border-t-0 border-black"
           >
-            <div id="msg" className="flex mt-4 last:mb-4 relative">
-              <div className="h-14 w-14 flex-shrink-0 rounded-full border border-black overflow-hidden">
-                <img src="..\image\leonardo_profile.jpg" alt="" />
-              </div>
-              <div className="bg-gray-200 ml-2 px-2 pb-5 rounded-r-lg rounded-b-lg">
-                <div>
-                  <span className="text-xs text-awesome-blue">
-                    @Leonardo_Da_Vinci
-                  </span>
-                </div>
-                <div>
-                  <p className="text-sm">
-                    Vestibulum ante ipsum primis in faucibus orci luctus et
-                    ultrices posuere cubilia curae; Curabitur nulla quam, mattis
-                    ac felis et, mollis scelerisque massa. Praesent diam dolor.
-                    🙊
-                  </p>
-                </div>
-                <div className="text-xs absolute right-1 bottom-1">
-                  15:33 02.03.23
-                </div>
-              </div>
-            </div>
-            <Message />
-            <Message />
-            <Message />
-            <Message />
-            <Message />
-            <Message />
-            <Message />
-            <Message />
-            <Message />
-            <Message />
+            {messages.map((data) =>
+
+              <Message avatar={data.avatar}
+                username={data.username}
+                timeStamp={data.timeStamp}
+                text={data.text}
+              />
+            )}
+            <div ref={lastMessageRef} />
           </div>
           <div className="flex flex-row items-center pt-3">
             <textarea
@@ -119,6 +160,7 @@ function Chat() {
               id="message"
               value={message}
               onChange={typingHandler}
+              onKeyDown={keyHandler}
               className="textarea text-sm h-14 resize-none border border-black rounded-xl"
               placeholder="...type smt here"
             ></textarea>
@@ -141,8 +183,8 @@ function Chat() {
             <input
               type="button"
               value="Send"
-              for="message"
-              onClick={message}
+              htmlFor="message"
+              onClick={sendHandler}
               className="w-32 h-14 bg-awesome-blue rounded-2xl text-white text-xl transition ease-in-out delay-50 hover:shadow-inner hover:bg-hower-aw-blue cursor-pointer"
             />
           </div>
