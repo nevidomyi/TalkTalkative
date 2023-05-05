@@ -7,6 +7,18 @@ class ChatService {
   Chat = chatModel;
   Category = categoryModel;
 
+  async isUserBelong(chatId, userId) {
+    try {
+      const chat = await this.Chat.findById(chatId);
+      const userBelong = chat.users.find((user) => user === userId);
+      if (userBelong) return true;
+      return false;
+    } catch (error) {
+      console.log(error);
+      throw new Error("Chat is undefined");
+    }
+  }
+
   async getMessages() {
     const data = await this.Message.find();
     return data;
@@ -22,11 +34,66 @@ class ChatService {
     return data;
   }
 
-  // async setChats(user, title, category) {
-  //   const data = await this.Chat.create(title, [user], category);
-  // }
+  async addCategory(name) {
+    const category = await this.Category.create({ name });
+    return category;
+  }
 
-  //TODO joinToChat, setChats, setCategory, deleteFromChat
+  async editCategory(id, name) {
+    const category = await this.Category.findByIdAndUpdate(
+      id,
+      { name },
+      { returnDocument: "after" }
+    );
+    return category;
+  }
+
+  async deleteCategory(id) {
+    const category = await this.Category.findByIdAndDelete(id);
+    return category;
+  }
+
+  async addChat(name, userId, categoryId) {
+    const chat = await this.Chat.create({
+      title: name,
+      users: userId,
+      category: categoryId,
+    });
+    return chat;
+  }
+
+  async editChat(id, name) {
+    const chat = await this.Chat.findByIdAndUpdate(
+      id,
+      { title: name },
+      { returnDocument: "after" }
+    );
+    return chat;
+  }
+
+  async deleteChat(id) {
+    const chat = await this.Chat.findByIdAndDelete(id);
+    return chat;
+  }
+
+  async joinToChat(userId, chatId) {
+    const chat = await this.Chat.findByIdAndUpdate(
+      chatId,
+      { users: userId },
+      { returnDocument: "after" }
+    );
+    return chat;
+  }
+
+  async deleteFromChat(userId, chatId) {
+    const chat = await this.Chat.findByIdAndUpdate(chatId, {
+      $pull: { users: userId },
+    });
+    return chat;
+    // chat.users = chat.users.filter(u => u._id.toString() !== userId)
+  }
+
+  //TODO joinToChat, deleteFromChat
 }
 
 module.exports = new ChatService();

@@ -41,9 +41,11 @@ const server = app.listen(app.get("port"), () => {
   console.log(`server is active http://localhost:${app.get("port")}`);
 });
 
-io = require("socket.io")(server, {
+const io = require("socket.io")(server, {
   cors: {
     origin: "http://localhost:5173",
   },
 });
 require("./controllers/socketController")(io);
+
+module.exports = server;

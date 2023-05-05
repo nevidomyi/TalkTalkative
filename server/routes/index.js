@@ -3,7 +3,7 @@ const userRoutes = require("./userRoutes");
 const chatRoutes = require("./chatRoutes");
 
 router.use("/users", userRoutes);
-router.use("/chat", chatRoutes);
+router.use("/talk", chatRoutes);
 
 router.use("/test", (req, res) => {
   if (!req) {
